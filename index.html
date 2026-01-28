@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wedding Invitation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Alvin & Genevie Wedding Invitation" />
+    <meta
+      property="og:description"
+      content="You are warmly invited to our wedding"
+    />
+    <meta
+      property="og:image"
+      content="https://alvinadan111.github.io/WeddingInvitation/thumbnail.jpg"
+    />
+    <meta
+      property="og:url"
+      content="https://alvinadan111.github.io/WeddingInvitation/"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Optional but recommended -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style>
+      body {
+        margin: 0;
+        text-align: center;
+        background: #f5f5f5;
+      }
+      img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+    <style>
+      .invite-video {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto 20px;
+        display: block;
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="invite1.jpg"
+      alt="Wedding Invitation 1/3"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="invite2.jpg"
+      alt="Wedding Invitation 2/3"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="invite3.jpg"
+      alt="Wedding Invitation 3/3"
+      loading="lazy"
+      decoding="async"
+    />
+    <video
+      class="invite-video"
+      controls
+      preload="none"
+      loop
+      controlslist="nodownload"
+      data-src="videoInvitation.mp4"
+      poster="video-thumbnail2.jpg"
+    >
+      Your browser does not support the video tag.
+    </video>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.querySelector(".invite-video");
+        window.scrollTo(0, 0);
+
+        // Force fullscreen when user clicks play
+        video.addEventListener("play", () => {
+          if (video.requestFullscreen) {
+            video.requestFullscreen();
+          } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen(); // Safari
+          } else if (video.msRequestFullscreen) {
+            video.msRequestFullscreen(); // IE/Edge
+          }
+        });
+
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  const src = video.getAttribute("data-src");
+                  if (src) {
+                    const source = document.createElement("source");
+                    source.src = src;
+                    source.type = "video/mp4";
+                    video.appendChild(source);
+                    video.load();
+                    observer.unobserve(video);
+                  }
+                }
+              });
+            },
+            { threshold: 0.25 }
+          );
+
+          observer.observe(video);
+        }
+      });
+    </script>
+  </body>
+</html>
